@@ -22,7 +22,7 @@ namespace dragon {
 			delete[]film;
 		}
 		void Write(int c) {
-			::std::string s = "../pic/image" + ::std::to_string(c) + ".ppm";
+			::std::string s = "image" + ::std::to_string(c) + ".ppm";
 			FILE *f = fopen(s.c_str(), "w");
 			fprintf(f, "P3\n%d %d\n%d\n", width, height, 255);
 			for (int i = 0; i < height; i++) {
