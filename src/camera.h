@@ -27,9 +27,9 @@ namespace dragon {
 			fprintf(f, "P3\n%d %d\n%d\n", width, height, 255);
 			for (int i = 0; i < height; i++) {
 				for (int j = 0; j < width; j++) {
-					int r = film[j][i].r.ToFloat() * 254;
-					int g = film[j][i].g.ToFloat() * 254;
-					int b = film[j][i].b.ToFloat() * 254;
+					int r = film[i][j].r.ToFloat() * 254;
+					int g = film[i][j].g.ToFloat() * 254;
+					int b = film[i][j].b.ToFloat() * 254;
 					fprintf(f, "%d %d %d ", r, g, b);
 				}
 			}
@@ -43,22 +43,22 @@ namespace dragon {
 		Camera(const Point3f&position, const Point3f&target,int width,int height) :
 			position(position), target(target) {
 			forward = (target - position).GetNorm();
-			left =  (Vec3f(0, 1, 0) * forward).GetNorm();
-			up = (forward * left).GetNorm();
+			right =  (Vec3f(0, 1, 0) * forward).GetNorm();
+			up = (forward * right).GetNorm();
 			Transform WorldToCam;
 			WorldToCam *= Translate(position.x, position.y, position.z);
-			WorldToCam *= Transform(-left, up, forward);
+			WorldToCam *= Transform(right, up, forward);
 			//CamToWorld = Inverse(WorldToCam);
 			CamToWorld = WorldToCam;
 			film = new Film(width, height);
 		}
 		void ReBuild() {
 			forward = (target - position).GetNorm();
-			left = (Vec3f(0, 1, 0) * forward).GetNorm();
-			up = (forward * left).GetNorm();
+			right = (Vec3f(0, 1, 0) * forward).GetNorm();
+			up = (forward * right).GetNorm();
 			Transform WorldToCam;
 			WorldToCam *= Translate(position.x, position.y, position.z);
-			WorldToCam *= Transform(-left, up, forward);
+			WorldToCam *= Transform(right, up, forward);
 			CamToWorld = WorldToCam;
 		}
 		Vec3f GetViewDir(const Point3f&pos)const {
@@ -71,7 +71,7 @@ namespace dragon {
 	protected:
 		Vec3f up;
 		Vec3f forward;
-		Vec3f left;
+		Vec3f right;
 		Point3f target;
 		Transform CamToWorld;
 	};

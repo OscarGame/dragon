@@ -14,7 +14,7 @@ namespace dragon {
 			Ray r;
 			for (int i = 0; i < cam.film->height; i++) {
 				for (int j = 0; j < cam.film->width; j++) {
-					cam.GenerateRay(Vec2i(i, j), &r);
+					cam.GenerateRay(Vec2i(j, i), &r);
 					cam.film->film[i][j] = Sample(s, r);
 				}
 			}
@@ -68,7 +68,7 @@ namespace dragon {
 			Ray r;
 			for (int i = 0; i < cam.film->height; i++) {
 				for (int j = 0; j < cam.film->width; j++) {
-					cam.GenerateRay(Vec2i(i, j), &r);
+					cam.GenerateRay(Vec2i(j, i), &r);
 					curDepth = 0;
 					cam.film->film[i][j] = Sample(s, r);
 				}
