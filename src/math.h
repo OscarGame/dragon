@@ -7,7 +7,9 @@
 static Float PI = 3.141592741f;
 static Float INFINITE_LARGE = 1e10f;
 static Float INFINITE_SMALL = 1e-10f;
-
+bool equal(Float v1, Float v2) {
+	return std::abs(v1 - v2) > INFINITE_SMALL ? false : true;
+}
 template <typename T>
 T Clamp(T v, T min, T max) {
 	if (v > max)return max;
@@ -40,7 +42,7 @@ public:
 		x = Clamp(x + r.x, Float(0.), Float(1.));
 		return *this;
 	}
-	Ratio& operator*=(const Ratio&r) {
+	Ratio& operator*=(const Ratio &r) {
 		x = Clamp(x * r.x, Float(0.), Float(1.));
 		return *this;
 	}
@@ -82,4 +84,5 @@ inline ::std::ostream&operator<<(::std::ostream&os, const Ratio&r) {
 inline Float Radians(Float deg) {
 	return (PI / 180) * deg;
 }
+
 #endif

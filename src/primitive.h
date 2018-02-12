@@ -415,6 +415,12 @@ namespace dragon {
 		RGB operator*(const RGB&rgb)const {
 			return RGB(r * rgb.r, g * rgb.g, b * rgb.b);
 		}
+		RGB& operator*=(const RGB&rgb){
+			r *= rgb.r;
+			g *= rgb.g;
+			b *= rgb.b;
+			return *this;
+		}
 		RGB operator*(const Vec3f&v)const {
 			return RGB(r * v.x, g * v.y, b * v.z);
 		}
@@ -568,6 +574,18 @@ namespace dragon {
 		fpar *= fpar;
 		fper *= fper;
 		return (fpar + fper) / 2;
+	}
+	template <typename T>
+	inline Float Dot(const Vec3<T>&v1, const Vec3<T>&v2) {
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	}
+	template <typename T>
+	inline Float Dot(const Vec3<T>&v1, const Normal&v2) {
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+	}
+	template <typename T>
+	inline Float Dot(const Normal&v1, const Vec3<T>&v2) {
+		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 	}
 }
 

@@ -27,7 +27,7 @@ namespace dragon {
 		RGB Sample(const Scene &s, const Ray &eye)override {
 			HitInfo nearp,tmp;
 			nearp.hitp = Point3f(1e30, 1e30, 1e30);
-			RGB pix;
+			RGB pix = WHITE;
 			//寻找离相机最近的交点
 			bool find = false;
 			for (auto obj : s.objs) {
@@ -51,7 +51,7 @@ namespace dragon {
 				//}
 				if (!shade) {
 					auto view = (eye.o - nearp.hitp).GetNorm();
-					pix += nearp.mat->ComputeColor(view, light->GetDir(nearp.hitp),
+					pix *= nearp.mat->ComputeColor(view, light->GetDir(nearp.hitp),
 						nearp.n,light->GetSDF(nearp.hitp),nearp.uv);
 				}
 			}
@@ -115,12 +115,12 @@ namespace dragon {
 				//如果交点可以反射就继续递归
 				if (nearp.mat->isReflect() && nearp.n.Dot(-eye.d) > 0) {
 					Ray newray = Ray(nearp.hitp, Reflect(eye.d, nearp.n));
-					pix += (Sample(s, newray) * Kr);
+					pix += (Sample(s, newray) * nearp.mat->gloss );
 				}
 				//如果交点可以折射继续递归
 				if (nearp.mat->isRefract()) {
 					Ray newray = Ray(nearp.hitp, Refract(eye.d, nearp.n, nearp.mat->eta));
-					pix += (Sample(s, newray) * (1 - Kr));
+					pix += (Sample(s, newray) );
 				}
 				else break;
 			}
