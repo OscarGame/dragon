@@ -104,7 +104,7 @@ namespace dragon {
 			return *this;
 		}
 		Vec3<T> operator+(const Vec3<T>&v)const {
-			return Vec3(x + v.x, y + v.y, z + v.z;);
+			return Vec3(x + v.x, y + v.y, z + v.z);
 		}
 		Vec3<T> operator+(const Normal&n)const;
 		Vec3<T>& operator+=(const Vec3<T>&v) {
@@ -116,9 +116,7 @@ namespace dragon {
 		Vec3<T> operator-(const Vec3<T>&v)const {
 			return Vec3<T>(x - v.x, y - v.y, z - v.z);
 		}
-		Vec3<T> operator-(const Normal&n)const {
-			return Vec3f(x - n.x, y - n.y, z - n.z);
-		}
+		Vec3<T> operator-(const Normal&n)const;
 		Vec3<T> &operator-=(const Vec3<T>&v) {
 			x -= v.x;
 			y -= v.y;
@@ -154,12 +152,7 @@ namespace dragon {
 		Vec3<T> operator-()const {
 			return Vec3(-x, -y, -z);
 		}
-		Vec3<T>& operator=(const Normal&n)const {
-			x = n.x;
-			y = n.y;
-			z = n.z;
-			return *this;
-		}
+		Vec3<T>& operator=(const Normal&n)const;
 		Vec3<T> operator*(const Vec3<T>&v) {
 			return Vec3<T>(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
 		}
@@ -176,9 +169,7 @@ namespace dragon {
 		T Dot(const Vec3<T>&v)const {
 			return x * v.x + y * v.y + z * v.z;
 		}
-		T Dot(const Normal&n)const {
-			return x * n.x + y * n.y + z * n.z;
-		}
+		T Dot(const Normal&n)const;
 		T operator[](int i) const {
 			if (i == 0)return x;
 			else if(i == 1) return y;
@@ -447,11 +438,11 @@ namespace dragon {
 			else return false;
 		}
 	};
-	const RGB BLACK = { 0.f,0.f,0.f };
-	const RGB WHITE = { 1.f,1.f,1.f };
-	const RGB RED = { 1.f,0.f,0.f };
-	const RGB GREEN = { 0.f,1.f,0.f };
-	const RGB BLUE = { 0.f,0.f,1.f };
+	const RGB BLACK( 0.f,0.f,0.f );
+	const RGB WHITE( 1.f,1.f,1.f );
+	const RGB RED( 1.f,0.f,0.f );
+	const RGB GREEN( 0.f,1.f,0.f );
+	const RGB BLUE( 0.f,0.f,1.f );
 	std::ostream &operator<<(std::ostream &os, const RGB&rgb) {
 		os << "RGB:" << rgb.r << " " << rgb.g << " " << rgb.b << std::endl;
 		return os;
@@ -505,8 +496,23 @@ namespace dragon {
 		return Vec3f(x + n.x, y + n.y, z + n.z);
 	}
 	template <typename T>
+	inline Vec3<T> Vec3<T>::operator-(const Normal&n)const {
+		return Vec3f(x - n.x, y - n.y, z - n.z);
+	}
+	template <typename T>
+	inline Vec3<T>& Vec3<T>::operator=(const Normal&n)const {
+		x = n.x;
+		y = n.y;
+		z = n.z;
+		return *this;
+	}
+	template <typename T>
+	inline T Vec3<T>::Dot(const Normal&n)const {
+		return x * n.x + y * n.y + z * n.z;
+	}
+	template <typename T>
 	inline std::ostream &operator<<(std::ostream &os, const Vec2<T>&v) {
-		os << "[" << v.x << "," << v.y << "]"<< endl;
+		os << "[" << v.x << "," << v.y << "]"<< std::endl;
 		return os;
 	}
 	template <typename T>
@@ -516,7 +522,7 @@ namespace dragon {
 	}
 	template <typename T>
 	inline std::ostream &operator<<(std::ostream &os, const Point2<T>&v) {
-		os << "[" << v.x << "," << v.y << "]" << endl;
+		os << "[" << v.x << "," << v.y << "]" << std::endl;
 		return os;
 	}
 	template <typename T>

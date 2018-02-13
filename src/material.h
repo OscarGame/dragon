@@ -48,7 +48,7 @@ namespace dragon {
 			RGB t = lightSDF * Kd * diffratio;	
 			Float sradio = Reflect(ray, n).Dot(view);
 			if (sradio > 0) {
-				Float spratio = ::std::powf(sradio, shininess);
+				Float spratio = powf(sradio, shininess);
 				t += lightSDF * Ks * spratio;
 			}
 			return t;
@@ -76,7 +76,7 @@ namespace dragon {
 			RGB t = BLACK;// lightSDF * Kd * diffratio;
 			Float sradio = Reflect(ray, n).Dot(view);
 			if (sradio > 0) {
-				Float spratio = ::std::powf(sradio, shininess);
+				Float spratio = powf(sradio, shininess);
 				t += lightSDF * Ks * spratio;
 			}
 			return BLACK;
@@ -104,7 +104,7 @@ namespace dragon {
 			RGB t = lightSDF * Kd * diffratio;
 			Float sradio = Reflect(ray, n).Dot(view);
 			if (sradio > 0) {
-				Float spratio = ::std::powf(sradio, shininess);
+				Float spratio = powf(sradio, shininess);
 				t += lightSDF * Ks * spratio;
 			}
 			t += tex.getColor(uv);

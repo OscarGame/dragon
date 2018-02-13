@@ -80,13 +80,12 @@ namespace dragon {
 			return n;
 		}
 		Matrix44 Inverse() {
-			static Float min =  -(2<<30);
 			Matrix44 n(m),x;
 			for (int i = 0; i < 4; i++) {
-				if (n.m[r[i]][i] <= min) {
+				if (n.m[r[i]][i] <= INFINITE_SMALL) {
 					bool invertable = false;
 					for (int j = i + 1; j < 4; j++) {
-						if (n.m[r[i]][j] > min) {
+						if (n.m[r[i]][j] > INFINITE_SMALL) {
 							invertable = true;
 							break;
 						}
