@@ -6,7 +6,7 @@ namespace dragon {
 	class Light {
 	public:
 		Light() {};
-		~Light() {};
+		virtual ~Light() {};
 		virtual Vec3f GetDir(const Point3f&pos)const = 0;
 		virtual RGB GetSDF(const Point3f&pos)const = 0;
 	};

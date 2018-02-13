@@ -96,7 +96,7 @@ namespace dragon {
 			y = v.y;
 			z = v.z;
 		}
-		explicit Vec3(const Normal&n) :x(n.x), y(n.y), z(n.z) {};
+		explicit Vec3(const Normal&n);
 		Vec3<T>& operator=(const Vec3<T>&v) {
 			x = v.x;
 			y = v.y;
@@ -106,9 +106,7 @@ namespace dragon {
 		Vec3<T> operator+(const Vec3<T>&v)const {
 			return Vec3(x + v.x, y + v.y, z + v.z;);
 		}
-		Vec3<T> operator+(const Normal&n)const {
-			return Vec3f(x + n.x, y + n.y, z + n.z);
-		}
+		Vec3<T> operator+(const Normal&n)const;
 		Vec3<T>& operator+=(const Vec3<T>&v) {
 			x += v.x;
 			y += v.y;
@@ -500,6 +498,12 @@ namespace dragon {
 
 		}
 	};
+	template<typename T>
+	inline Vec3<T>::Vec3(const Normal&n) :x(n.x), y(n.y), z(n.z) {};
+	template <typename T>
+	inline Vec3<T> Vec3<T>::operator+(const Normal&n)const {
+		return Vec3f(x + n.x, y + n.y, z + n.z);
+	}
 	template <typename T>
 	inline std::ostream &operator<<(std::ostream &os, const Vec2<T>&v) {
 		os << "[" << v.x << "," << v.y << "]"<< endl;
