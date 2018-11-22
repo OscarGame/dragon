@@ -86,10 +86,6 @@ namespace dragon {
 			for (int i = 0; i < 4; i++) {
 				p[i] = t(p[i]) + Vec3f(pos.x,pos.y,pos.z);
 			}
-			//p[0] = Point3f(pos.x - width / 2, pos.y + height / 2, pos.z);
-			//p[1] = Point3f(pos.x + width / 2, pos.y + height / 2, pos.z);
-			//p[2] = Point3f(pos.x - width / 2, pos.y - height / 2, pos.z);
-			//p[3] = Point3f(pos.x + width / 2, pos.y - height / 2, pos.z);
 			Transform nt = NormalT(t);
 			n = nt(n).GetNorm();
 		};
