@@ -13,16 +13,17 @@ src/Light/light.h
 SET(DRAGON_SCENE
 src/Scene/scene.h
 )
-SET(DRAGON_DESCRIPTOR
-
-)
 SET(DRAGON_DESCRIPTOR_GEOMETRY
-src/3DStructure/object.h
-src/3DStructure/primitive.h
-src/3DStructure/floor.h
-src/3DStructure/sphere.h
+src/Descriptor/Geometry/object.h
+src/Descriptor/Geometry/primitive.h
+src/Descriptor/Geometry/floor.h
+src/Descriptor/Geometry/sphere.h
 )
 SET(DRAGON_DESCRIPTOR_RADIOMETRT)
+SET(DRAGON_DESCRIPTOR
+${DRAGON_DESCRIPTOR_GEOMETRY}
+${DRAGON_DESCRIPTOR_RADIOMETRT}
+)
 SET(DRAGON_CAMERA
 src/Camera/camera.h
 )
@@ -54,7 +55,7 @@ ${DRAGON_MATERIAL}
 source_group("Light" FILES ${DRAGON_LIGHT})
 source_group("Camera" FILES ${DRAGON_CAMERA})
 source_group("Descriptor\\GEOMETRT" FILES ${DRAGON_DESCRIPTOR_GEOMETRY})
-source_group("Descriptor\\GEOMETRT" FILES ${DRAGON_DESCRIPTOR_GEOMETRY})
+source_group("Descriptor\\RDIOMETRY" FILES ${DRAGON_DESCRIPTOR_RDIOMETRY})
 
 source_group("Scene" FILES ${DRAGON_SCENE})
 source_group("System" FILES ${DRAGON_SYSTEM})
