@@ -3,10 +3,11 @@
 #define DRAGON_CORE_MATH
 #include<cmath>
 #include<algorithm>
-#define Float double
-static Float PI = 3.141592741f;
-static Float INFINITE_LARGE = 1e10f;
-static Float INFINITE_SMALL = 1e-10f;
+#include "../System/types.h"
+static const Float PI = 3.141592741f;
+static const Float INFINITE_LARGE = 1e10f;
+static const Float INFINITE_SMALL = 1e-10f;
+
 bool equal(Float v1, Float v2) {
 	return std::abs(v1 - v2) > INFINITE_SMALL ? false : true;
 }
