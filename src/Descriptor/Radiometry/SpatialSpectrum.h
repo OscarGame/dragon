@@ -26,13 +26,7 @@ namespace dragon {
 	or any static class data member, in a header file, 
 	so that the multiple definitions that result when that header is included in multiple translation units are OK with the linker – it just chooses one of them.
 	*/
-	static const uint32 nSpatialSamples = 60;
-	static const uint32 lambdaStart = 400;
-	static const uint32 lambdaEnd = 700;
 
-	class SpatialSpectrum :public CoefficientSpectrum<nSpatialSamples> {
-
-	};
 }
 
 #endif

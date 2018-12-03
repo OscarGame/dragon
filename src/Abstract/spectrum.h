@@ -2,7 +2,8 @@
 
 #ifndef DRAGON_RADIOMETRY_SPECTRUM
 #define DRAGON_RADIOMETRY_SPECTRUM
-#include "types.h"
+#include "defines.h"
+
 namespace dragon{
 	/*
 	
@@ -13,13 +14,41 @@ namespace dragon{
 	private:
 		Float samples[N];
 	public:
-		CoefficientSpectrum(Float v) {
+		CoefficientSpectrum(Float v = 0.f) {
 			for (int i = 0; i < N; i++) {
 				samples[i] = v;
 			}
 		}
+		Float operator[](uint32 i) {
+			return samples[i];
+		}
+		CoefficientSpectrum operator *(Float v) const{
+			CoefficientSpectrum t = *this;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] *= v;
+			}
+			return t;
+		}
 	};
 
+	class RGBSpectrum :public CoefficientSpectrum<3> {
+	public:
+		RGBSpectrum(Float v = 0.f) :CoefficientSpectrum(v) {};
+		RGBSpectrum(const CoefficientSpectrum&t) :CoefficientSpectrum(t) {};
+	};
+
+	static const uint32 nSpatialSamples = 60;
+	static const uint32 lambdaStart = 400;
+	static const uint32 lambdaEnd = 700;
+
+	class SpatialSpectrum :public CoefficientSpectrum<nSpatialSamples> {
+	public:
+		SpatialSpectrum(Float v = 0.f) :CoefficientSpectrum(v) {};
+		SpatialSpectrum(const CoefficientSpectrum&t) :CoefficientSpectrum(t) {};
+
+	};
+
+	typedef RGBSpectrum Spectrum;
 }
 
 #endif
