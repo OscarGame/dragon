@@ -29,6 +29,55 @@ namespace dragon{
 			}
 			return t;
 		}
+		CoefficientSpectrum operator *(const CoefficientSpectrum&v)const {
+			CoefficientSpectrum t = *this;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] *= v.samples[i];
+			}
+			return t;
+		}
+		CoefficientSpectrum operator -(Float v)const {
+			CoefficientSpectrum t;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] -= v;
+			}
+			return t;
+		}
+		CoefficientSpectrum operator +(const CoefficientSpectrum&v)const {
+			CoefficientSpectrum t;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] += v.samples[i];
+			}
+			return t;
+		}
+		CoefficientSpectrum operator +(Float v)const {
+			CoefficientSpectrum t;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] += v;
+			}
+			return t;
+		}
+		CoefficientSpectrum operator -(const CoefficientSpectrum&v)const {
+			CoefficientSpectrum t;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] -= v.samples[i];
+			}
+			return t;
+		}
+		CoefficientSpectrum operator /(const CoefficientSpectrum&v)const {
+			CoefficientSpectrum t;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] /= v.samples[i];
+			}
+			return t;
+		}
+		friend CoefficientSpectrum Sqrt(const CoefficientSpectrum&v)const {
+			CoefficientSpectrum t = *this;
+			for (uint32 i = 0; i < N; i++) {
+				t.samples[i] = std::sqrt(v.samples[i]);
+			}
+			return t;
+		}
 	};
 
 	class RGBSpectrum :public CoefficientSpectrum<3> {

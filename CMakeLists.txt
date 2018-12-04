@@ -38,7 +38,7 @@ ${DRAGON_INTEGRATOR}
 ${DRAGON_MATERIAL}
 )
 
-include_directories("./src/Abstract" "./src/System")
+include_directories("./src/Abstract" "./src/System" "./src/Math")
 source_group("Abstract" FILES ${DRAGON_ABSTRACT})
 source_group("Light" FILES ${DRAGON_LIGHT})
 source_group("Camera" FILES ${DRAGON_CAMERA})
