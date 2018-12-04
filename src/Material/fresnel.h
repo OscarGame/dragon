@@ -3,8 +3,9 @@
 #include "primitive.h"
 #include "dragonMath.h"
 #include "spectrum.h"
+#include <memory>
 namespace dragon {
-	Float FresnelDielectric(Float cosThetaI,Float etaI, Float etaT) {
+	Float FrDielectric(Float cosThetaI,Float etaI, Float etaT) {
 		cosThetaI = Clamp(cosThetaI, -1.0, 1.0);
 		// Potentially swap indices of refraction
 		bool entering = cosThetaI > 0.f;
@@ -26,7 +27,6 @@ namespace dragon {
 			((etaI * cosThetaI) + (etaT * cosThetaT));
 		return (Rparl * Rparl + Rperp * Rperp) / 2;
 	}
-
 	Spectrum FrConductor(Float cosThetaI, const Spectrum &etai,
 		const Spectrum &etat, const Spectrum &k) {
 		cosThetaI = Clamp(cosThetaI, -1.0, 1.0);
@@ -51,4 +51,27 @@ namespace dragon {
 
 		return (Rp + Rs) * .5;
 	}
+	class Fresnel {
+	public:
+		virtual ~Fresnel() {};
+		virtual Spectrum Reflectance(Float cosThetaI)const = 0;
+	};
+	class FresnelDielectric :public Fresnel {
+	public:
+		Spectrum Reflectance(Float cosThetaI)const override final {
+			return FrDielectric(cosThetaI, etaI, etaT);
+		}
+	private:
+		const Float etaI, etaT;
+	};
+	class FresnelConductor :public Fresnel {
+	public:
+		Spectrum Reflectance(Float cosThetaI)const override final {
+			return FrConductor(cosThetaI, etaI, etaT, K);
+		}
+	private:
+		const Spectrum etaI, etaT, K;
+	};
+	typedef std::shared_ptr<Fresnel> FresnelSptr;
+	typedef std::shared_ptr<Fresnel> FresnelUptr;
 }

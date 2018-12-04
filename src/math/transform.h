@@ -5,6 +5,8 @@
 #include<cmath>
 #include<cstring>
 #include"primitive.h"
+#include "defines.h"
+#include "dragonMath.h"
 namespace dragon {
 	struct Matrix44 {
 		Matrix44() {

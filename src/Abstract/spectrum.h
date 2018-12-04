@@ -14,6 +14,7 @@ namespace dragon{
 	private:
 		Float samples[N];
 	public:
+		virtual ~CoefficientSpectrum() {};
 		CoefficientSpectrum(Float v = 0.f) {
 			for (int i = 0; i < N; i++) {
 				samples[i] = v;
@@ -35,6 +36,12 @@ namespace dragon{
 				t.samples[i] *= v.samples[i];
 			}
 			return t;
+		}
+		CoefficientSpectrum &operator *=(const CoefficientSpectrum&v){
+			for (uint32 i = 0; i < N; i++) {
+				samples[i] *= v.samples[i];
+			}
+			return *this;
 		}
 		CoefficientSpectrum operator -(Float v)const {
 			CoefficientSpectrum t;

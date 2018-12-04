@@ -1,8 +1,8 @@
 #pragma once
 #ifndef DRAGON_CORE_MATH
 #define DRAGON_CORE_MATH
-#include<cmath>
-#include<algorithm>
+#include <cmath>
+#include <algorithm>
 #include "defines.h"
 namespace dragon {
 	static const Float INFINITE_LARGE = 1e10f;
@@ -85,5 +85,7 @@ namespace dragon {
 	inline Float Radians(Float deg) {
 		return (Pi / 180) * deg;
 	}
+
+
 }
 #endif

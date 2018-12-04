@@ -2,6 +2,7 @@
 
 #ifndef DRAGON_SYSTEM_TYPES
 #define DRAGON_SYSTEM_TYPES
+
 namespace dragon {
 	#define Float double
 	typedef unsigned int uint32;
