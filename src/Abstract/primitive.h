@@ -4,8 +4,9 @@
 #include <iterator>
 #include <algorithm>
 #include <iostream>
-#include"utility.h"
-#include"math.h"
+#include "utility.h"
+#include "defines.h"
+#include "math.h"
 namespace dragon {
 	class Normal;
 	template <typename T>
@@ -322,7 +323,7 @@ namespace dragon {
 			y = p.y;
 			z = p.z;
 		}
-		Normal(const Vec3f&v) :x(v.x), y(v.y), z(v.z) {}
+		explicit Normal(const Vec3f&v) :x(v.x), y(v.y), z(v.z) {}
 		Normal operator+(const Vec3f &v)const {
 			return Normal(x + v.x, y + v.y, z + v.z);
 		}
@@ -566,26 +567,6 @@ namespace dragon {
 			return (i * eta + n * (eta * cosi - std::sqrt(c2))).GetNorm();
 	}
 
-	//float Fresnel(const Vec3f&I, const Normal&N, Float eta) {
-	//	Vec3f i = I.GetNorm();
-	//	Normal n = N;
-	//	//假设条件在密度大的物体内入射
-	//	Float etai = eta, etat = 1;
-	//	Float cosi = i.Dot(n);
-	//	//如果在密度小的物体入射
-	//	if (cosi < 0)std::swap(etai, etat);
-	//	Float sint = etai / etat * sqrt(1 - cosi * cosi);
-	//	//全反射
-	//	if (sint >= 1)
-	//		return 1;
-	//	Float cost = sqrt(1 - sint * sint);
-	//	cosi = std::abs(cosi);
-	//	Float fpar = (etat * cosi - etai * cost) / (etat * cosi + etai * cost);
-	//	Float fper = (-etat * cosi + etai * cost) / (etat * cosi + etai * cost);
-	//	fpar *= fpar;
-	//	fper *= fper;
-	//	return (fpar + fper) / 2;
-	//}
 	template <typename T>
 	inline Float Dot(const Vec3<T>&v1, const Vec3<T>&v2) {
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
