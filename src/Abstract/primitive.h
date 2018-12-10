@@ -10,6 +10,8 @@
 namespace dragon {
 	class Normal;
 	template <typename T>
+	class AABB3;
+	template <typename T>
 	class Vec3;
 	template <typename T>
 	class Vec2 {
@@ -313,6 +315,7 @@ namespace dragon {
 	typedef Point2<Float> Point2f;
 	typedef Point3<int> Point3i;
 	typedef Point3<Float> Point3f;
+	typedef AABB3<Float> AABB3f;
 	class Normal{
 	public:
 		Float x, y, z;
@@ -463,26 +466,26 @@ namespace dragon {
 
 	};
 	template <typename T>
-	class Bounds3 {
+	class AABB3 {
 	public:
-		Bounds3() {
+		AABB3() {
 			T minNum = std::numeric_limits<T>::lowest();
 			T maxNum = std::numeric_limits<T>::max();
 			pMin = Point3<T>(maxNum, maxNum, maxNum);
 			pMax = Point3<T>(minNum, minNum, minNum);
 		}
-		explicit Bounds3(const Point3<T> &p) : pMin(p), pMax(p) {}
-		Bounds3(const Point3<T> &p1, const Point3<T> &p2)
+		explicit AABB3(const Point3<T> &p) : pMin(p), pMax(p) {}
+		AABB3(const Point3<T> &p1, const Point3<T> &p2)
 			: pMin(std::min(p1.x, p2.x), std::min(p1.y, p2.y),
 				std::min(p1.z, p2.z)),
 			pMax(std::max(p1.x, p2.x), std::max(p1.y, p2.y),
 				std::max(p1.z, p2.z)) {}
 		const Point3<T> &operator[](int i) const;
 		Point3<T> &operator[](int i);
-		bool operator==(const Bounds3<T> &b) const {
+		bool operator==(const AABB3<T> &b) const {
 			return b.pMin == pMin && b.pMax == pMax;
 		}
-		bool operator!=(const Bounds3<T> &b) const {
+		bool operator!=(const AABB3<T> &b) const {
 			return b.pMin != pMin || b.pMax != pMax;
 		}
 		Point3<T> Corner(int corner) const {
@@ -526,19 +529,19 @@ namespace dragon {
 			*radius = Inside(*center, *this) ? Distance(*center, pMax) : 0;
 		}
 		template <typename U>
-		explicit operator Bounds3<U>() const {
-			return Bounds3<U>((Point3<U>)pMin, (Point3<U>)pMax);
+		explicit operator AABB3<U>() const {
+			return AABB3<U>((Point3<U>)pMin, (Point3<U>)pMax);
 		}
 		bool IntersectP(const Ray &ray, Float *hitt0 = nullptr,
 			Float *hitt1 = nullptr) const;
 		inline bool IntersectP(const Ray &ray, const Vector3f &invDir,
 			const int dirIsNeg[3]) const;
-		friend std::ostream &operator<<(std::ostream &os, const Bounds3<T> &b) {
+		friend std::ostream &operator<<(std::ostream &os, const AABB3<T> &b) {
 			os << "[ " << b.pMin << " - " << b.pMax << " ]";
 			return os;
 		}
 
-		// Bounds3 Public Data
+		// AABB3 Public Data
 		Point3<T> pMin, pMax;
 	};
 	class Ray {

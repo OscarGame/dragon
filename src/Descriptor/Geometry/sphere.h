@@ -10,7 +10,7 @@ namespace dragon{
 	public:
 		Sphere(const Point3f& p, Float r, const ::std::shared_ptr<Material>& mat)
 			:radius(r),Object(p,mat) {};
-		bool Hit(const Ray&r, HitInfo* hit)const override {
+		bool Hit(const Ray&r,Float t, HitInfo* hit)const override {
 			Float ox = r.o.x,oy = r.o.y,oz = r.o.z,
 				dx = r.d.x,dy = r.d.y,dz = r.d.z,
 				cx = pos.x,cy = pos.y,cz = pos.z;
@@ -28,7 +28,7 @@ namespace dragon{
 			hit->mat = mat;
 			return true;
 		}
-		bool isHit(const Ray&r)const override {
+		bool IsHit(const Ray&r)const override {
 			Vec3f oA = pos - r.o;
 			Vec3f oD = r.d.GetNorm();
 			Float oAs = oA.Length();
@@ -37,10 +37,11 @@ namespace dragon{
 				return false;
 			else return true;
 		}
-		bool on(const Point3f&p)const override {
+		bool OnSurface(const Point3f&p)const override {
 			if (pos.Distance(p) < radius)return true;
 			else return false;
 		}
 	};
-
+	typedef ::std::shared_ptr<Sphere> SpherePtr;
 }
+#endif

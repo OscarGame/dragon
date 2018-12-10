@@ -30,7 +30,7 @@ namespace dragon{
 				Transform nt = NormalT(t);
 				n = nt(n).GetNorm();
 			};
-			bool on(const Point3f&pp)const override {
+			bool OnSurface(const Point3f&pp)const override {
 				Float minx1 = std::min(p[0].x, p[1].x);
 				Float minx2 = std::min(p[2].x, p[3].x);
 				Float minx = minx1 < minx2 ? minx1 : minx2;
@@ -47,7 +47,7 @@ namespace dragon{
 				if (pp.x > maxx || pp.y > maxy)return false;
 				return true;
 			}
-			bool isHit(const Ray&r)const override {
+			bool IsHit(const Ray&r)const override {
 				Float t;
 				Float part1 = n.x * r.d.x + n.y * r.d.y + n.z * r.d.z;
 				if (part1 < 1e-20 && part1 > -1e-20)return false;
@@ -56,7 +56,7 @@ namespace dragon{
 				if (t > r.t)return false;
 				else return true;
 			}
-			bool Hit(const Ray&r, HitInfo*hit)const override {
+			bool Hit(const Ray&r, Float t,HitInfo*hit)const override {
 				Float t;
 				Float part1 = n.x * r.d.x + n.y * r.d.y + n.z * r.d.z;
 				if (part1 < 1e-20 && part1 > -1e-20)return false;
@@ -70,12 +70,13 @@ namespace dragon{
 				hit->uv = getTex(hit->hitp);
 				return true;
 			}
-			Vec2f getTex(const Point3f&pos)const override {
+			Vec2f GetTexByPos(const Point3f&pos)const override {
 				Vec3f pp0 = pos - p[0];
 				Float u = pp0.Dot(p[1] - p[0]) / width;
 				Float v = pp0.Dot(p[2] - p[0]) / height;
 				return Vec2f(u / width, v / height);
 			}
 		};
-		typedef ::std::shared_ptr<Floor> PFloor;
+		typedef ::std::shared_ptr<Floor> FloorPtr;
 }
+#endif

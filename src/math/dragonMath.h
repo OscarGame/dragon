@@ -85,6 +85,12 @@ namespace dragon {
 	inline Float Radians(Float deg) {
 		return (Pi / 180) * deg;
 	}
+	inline Vec3f Min(const Vec3f&lhs,const Vec3f&rhs){
+		return Vec3f(std::min(lhs.x, rhs.x), std::min(lhs.y, rhs.y), std::min(lhs.z, rhs.z));
+	}
+	inline Vec3f Max(const Vec3f&lhs, const Vec3f&rhs) {
+		return Vec3f(std::max(lhs.x, rhs.x), std::max(lhs.y, rhs.y), std::max(lhs.z, rhs.z));
+	}
 
 
 }

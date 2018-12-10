@@ -116,6 +116,18 @@ namespace dragon {
 			}
 			return x;
 		}
+		Vec3f XAxis()const {
+			return Vec3f(m[0][0], m[1][0], m[2][0]);
+		}
+		Vec3f YAxis()const {
+			return Vec3f(m[0][1], m[1][1], m[2][1]);
+		}
+		Vec3f ZAxis()const {
+			return Vec3f(m[0][2], m[1][2], m[2][2]);
+		}
+		Vec3f Translation()const {
+			return Vec3f(m[0][3], m[1][3], m[2][3]);
+		}
 		Float m[4][4];
 		char r[4];
 	};
@@ -191,6 +203,20 @@ namespace dragon {
 			ray.o.y = oy / wp;
 			ray.o.z = oz / wp;
 			return ray;
+		}
+		template <typename T>
+		AABB3<T> operator()(const AABB3<T>&bb)const {
+			Vec3f xmin = bb.pMin.x * m.XAxis();
+			Vec3f xmax = bb.pMax.x * m.XAxis();
+
+			Vec3f ymin = bb.pMin.y * m.YAxis();
+			Vec3f yman = bb.pMax.y * m.YAxis();
+
+			Vec3f zmin = bb.pMin.z * m.ZAxis();
+			Vec3f zman = bb.pMin.z * m.ZAxis();
+
+			return AABB3<T>(Min(xmin, xmax) + Min(ymin, ymax) + Min(zmin, zmin) + m.Translation(),
+				Max(xmin, xmax) + Max(ymin, ymax) + Max(zmin, zmin) + m.Translation());
 		}
 		Transform operator*(const Transform&t) {
 			return Transform(m.Mul(t.m), t.inv.Mul(inv));
